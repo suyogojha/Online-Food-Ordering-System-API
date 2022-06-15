@@ -1,0 +1,61 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="dishes">
+    <!--Main layout-->
+  <main class="mt-3 pt-4 main">
+    <div class="container dark-grey-text">
+      <div class="row wow fadeIn">
+        <div class="col-md-6 mb-4">
+          <img src="{{ item.image.url }}" class="img-fluid mt-4" alt="">
+        </div>
+        <div class="col-md-6 mb-4 information">
+          <!--Content-->
+          <div class="p-4 content">
+            <div class="mt-0">
+                <h2><u>{{ item.title }}</u><span class="badge badge-{{ item.label_colour }} ml-2">{{ item.labels }}</span></h2>
+            </div>
+            <div class="lead">
+              {% if item.description %}
+              <h5>{{ item.description }}</h5>
+              {% endif %}
+              <h3>P{{ item.price }} per order of {{ item.pieces}} pieces</h3>
+              <h4>{{ item.instructions }}</h4>
+            </div>
+            <a href="{% url 'main:add-to-cart' item.slug %}" class="btn btn-success btn-md my-0 p">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </main>
+  <div class="container">
+    <h1 class="text-center">Reviews</h1>
+    
+    <form action="{% url 'main:add_reviews' %}" method="POST" class="mb-3">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-11">
+          <input type="text" name="review" class="form-control" placeholder="Enter Your Review">
+          <input type="hidden" name="rslug" class="form-control" value="{{item.slug}}">
+        </div>
+        <div class="col-sm-1">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+
+    {% for review in reviews %}
+    <div class="main-reviews card bg-success mb-3">
+      <div class="card-body">
+        <div class="user_details" style="display: flex; border-bottom: 1px solid rgb(31, 30, 30);">
+          <h3 class="mr-3">{{ review.user.username }} </h3>
+          <p class="mt-2">{{ review.posted_on }}</p>
+        </div>
+          <h4>{{ review.review }}</h4>
+      </div>
+    </div>
+    {% endfor %}
+    
+  </div>
+</div>
+{% endblock content %}

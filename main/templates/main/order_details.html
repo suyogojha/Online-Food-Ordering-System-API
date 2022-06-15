@@ -1,0 +1,86 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 mt-5">
+                <h3 class="text-center">Active Orders</h3>
+                {% if items %}
+                <h4 class="text-center">Total Bill Amount: {{total}} for {{ count }} Orders.</h4>
+                <h6 class="text-center">Please Pay Either via ATM or Credit Card or Cash on Delivery!</h6>
+                <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ordered</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Specification</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total Pieces</th>
+                            <th scope="col">Order Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for item_active in items %}
+                        <tr>
+                            <td>{{ item_active.ordered_date }}</td>
+                            <td>{{ item_active.item.title }} <span class="badge badge-{{ item_active.item.label_colour }}">{{ item_active.item.labels }}</span></td>
+                            <td>{{ item_active.item.description }}</td>
+                            <td>{{ item_active.item.instructions }}</td>
+                            <td>{{ item_active.item.price }}</td>
+                            <td>{{ item_active.item.pieces }} pieces</td>
+                            <td>{{ item_active.status }}</td>
+                        </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <h4 class="text-center">Sorry, you have not ordered any item yet!!!</h4>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 mt-5">
+                <h3 class="text-center">Past Orders</h3>
+                {% if cart_items %}
+                <div class="table-responsive">
+                    <table class="table table-light">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ordered</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Specification</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total Pieces</th>
+                            <th scope="col">Order Status</th>
+                            <th scope="col">Delivery Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for cart in cart_items %}
+                        <tr>
+                            <td>{{ cart.ordered_date }}</td>
+                            <td>{{ cart.item.title }} <span class="badge badge-{{ cart.item.label_colour }}">{{ cart.item.labels }}</span></td>
+                            <td>{{ cart.item.description }}</td>
+                            <td>{{ cart.item.instructions }}</td>
+                            <td>{{ cart.item.price }}</td>
+                            <td>{{ cart.item.pieces }} pieces</td>
+                            <td>{{ cart.status }}</td>
+                            <td>{{ cart.delivery_date }}</td>
+                        </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <h4 class="text-center">Sorry, you have not ordered any item yet!!!</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

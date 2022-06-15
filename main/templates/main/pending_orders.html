@@ -1,0 +1,57 @@
+{% extends "main/layout2.html" %}
+{% block content %}
+<div class="cart">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center">Active Orders</h3>
+                {% if items %}
+                <div class="table-responsive">
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <td scope="col">Order No.</td>
+                            <th scope="col">User</th>
+                            <th scope="col">User Email</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Specification</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total Pieces</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Change Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.user.username }}</td>
+                            <td>{{ item.user.email}}</td>
+                            <td>{{ item.item.title }} <span class="badge badge-{{ item.item.label_colour }}">{{ item.item.labels }}</span></td>
+                            <td>{{ item.item.description }}</td>
+                            <td>{{ item.item.instructions }}</td>
+                            <td>{{ item.item.price }}</td>
+                            <td>{{ item.item.pieces }} pieces</td>
+                            <td>{{ item.status }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'main:update_status' item.id %}" style="display: flex;">
+                                    {% csrf_token %}
+                                    <select class="form-control" name="status">
+                                        <option value="Active" selected="selected">Active</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Change</button>
+                                </form>
+                            </td>
+                        </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <h4 class="text-center">Sorry, you have not ordered any item yet!!!</h4>
+                {% endif %}
+            </div>
+        </div>
+</div>
+{% endblock content %}

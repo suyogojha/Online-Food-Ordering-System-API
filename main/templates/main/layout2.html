@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admin Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'main/sb-admin-2.min.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'main:admin_dashboard' %}">
+                <div class="sidebar-brand-text mx-3">Welcome</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'main:admin_dashboard' %}">
+                <i class="fa fa-bandcamp"></i>
+                <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Admin Interface
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:item-create' %}">
+                  <i class="fa fa-plus"></i>
+                  <span>Add Products</span>
+                </a>
+            </li>  
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:item_list' %}">
+                  <i class="fa fa-plus"></i>
+                  <span>View Items</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:admin_view' %}">
+                <i class="fa fa-check"></i>
+                <span>Completed Orders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:pending_orders' %}">
+                <i class="fa fa-bell"></i>
+                <span>Pending Orders</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Profile</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:home' %}">
+                <i class="fa fa-home"></i>
+                <span>Home</span></a>
+            </li>
+            <li class="nav-item ml-3 mb-3">
+                <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="mr-2">Logout</button>
+                </form>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h2 class="text-center">AdminPage</h3>
+                </nav>
+                <div class="container-fluid">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

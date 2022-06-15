@@ -1,0 +1,43 @@
+{% extends "main/layout2.html" %}
+{% block content %}
+<div class="cart">
+    <div class="row">
+        <div class="col-sm-12">
+            {% if items %}
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <td scope="col">Item No.</td>
+                        <th scope="col">Title</th>
+                        <th scope="col">Decription</th>
+                        <th scope="col">Instructions</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Pieces</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }} <span class="badge badge-{{ item.label_colour }}">{{ item.labels }}</span></td></td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.instructions }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.pieces }} pieces</td>
+                        <td><a class="btn btn-primary" href="{% url 'main:item-update' item.slug %}">Update</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'main:item-delete' item.slug %}">Delete</a></td>
+                    </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <h4 class="text-center">Sorry, you have not ordered any item yet!!!</h4>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

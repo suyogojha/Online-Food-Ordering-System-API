@@ -1,0 +1,53 @@
+{% extends "main/layout.html" %}
+{% block content %}
+  <div class="home bg-danger">
+    <div id="carouselExampleCaptions" class="carousel slide mb-5" data-ride="carousel" style="height: 500px;">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../media/garantisado.jpg" class="d-block w-100" alt="sushi1" height="500px">
+            <div class="carousel-caption d-none d-md-block text-dark">
+              <h1 style="color: yellow">Evanz Foods</h1>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../media/manamit.jpg" class="d-block w-100" alt="sushi2" height="500px">
+          </div>
+          <div class="carousel-item">
+            <img src="../media/saburuso.jpg" class="d-block w-100" alt="sushi3" height="500px">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="container">
+      <h1 class="text-center text-light mb-3">Our Dishes</h1>
+      <div class="row">
+        {% for item in menu_items %}
+            <div class="col-sm-4">
+                <div class="card mb-3" style="height: fit-content; overflow: auto;">
+                  <img src="{{ item.image.url }}" style="height: 250px;">
+                    <div class="card-body text-center">      
+                      <button class="btn btn-warning">By:{{ item.created_by }}</button>         
+                      <h5 class="text-center"><a href="{% url 'main:dishes' item.slug %}">{{ item.title }} </a><span class="badge badge-{{ item.label_colour }}">{{ item.labels }}</span></h5>
+                      <p class="text-center">{{ item.description }}</p>
+                      <h5 class="text-center">P{{ item.price }}</h5>
+                      <a href="{% url 'main:dishes' item.slug %}" class="btn btn-success">View Details</a>
+                    </div>
+                </div>
+            </div>            
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}
